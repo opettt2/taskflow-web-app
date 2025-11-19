@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
+// Parse DATABASE_URL for Heroku
+$DATABASE_URL = parse_url(env("DATABASE_URL"));
 
 return [
 
@@ -34,7 +36,7 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => ltrim($DATABASE_URL["path"] ?? '', '/') ?: env('DB_DATABASE', 'forge'),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
             'busy_timeout' => null,
