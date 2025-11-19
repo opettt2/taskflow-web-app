@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input-main {
+    @apply w-full p-3 mt-1 rounded-xl border border-black/20 bg-white/70 dark:bg-white/10;
+}
+
+.dropdown-item {
+    @apply block px-3 py-2 rounded-lg text-sm hover:bg-black/10 dark:hover:bg-white/10;
+}
+
+/* Theme helpers */
+:root{
+  --ocean-slate: #4f6d7a;
+  --ocean-sky: #c0d6df;
+  --ocean-alice: #dbe9ee;
+  --ocean-smart: #4a6fa5;
+  --ocean-baltic: #166088;
+}
+
+/* Glass utilities */
+.bg-glass-light {
+  background-color: rgba(255,255,255,0.22);
+}
+.bg-glass-dark {
+  background-color: rgba(8,10,12,0.36);
+}
+
+/* Buttons */
+.btn-primary {
+  @apply px-4 py-2 rounded-lg font-semibold shadow-md text-white;
+  background: linear-gradient(90deg,var(--ocean-smart),var(--ocean-baltic));
+}
+.btn-ghost {
+  @apply px-3 py-1 rounded-md border text-ocean-baltic;
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* Slight readable badge */
+.badge {
+  @apply px-3 py-1 text-xs rounded-full text-white;
+  opacity: 0.95;
+}
+
+/* Minor responsive tweak for big containers */
+@media (max-width:640px){
+  .max-w-6xl{ padding-left:1rem; padding-right:1rem; }
+}
