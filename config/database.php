@@ -86,16 +86,16 @@ return [
         ],
 
         'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => $databaseUrl ? parse_url($databaseUrl, PHP_URL_HOST) : env('DB_HOST', '127.0.0.1'),
-            'port'     => $databaseUrl ? parse_url($databaseUrl, PHP_URL_PORT) : env('DB_PORT', '5432'),
-            'database' => $databaseUrl ? ltrim(parse_url($databaseUrl, PHP_URL_PATH), '/') : env('DB_DATABASE', 'forge'),
-            'username' => $databaseUrl ? parse_url($databaseUrl, PHP_URL_USER) : env('DB_USERNAME', 'forge'),
-            'password' => $databaseUrl ? parse_url($databaseUrl, PHP_URL_PASS) : env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-            'sslmode'  => 'require',
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'taskapp'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
         ],
 
         'sqlsrv' => [
