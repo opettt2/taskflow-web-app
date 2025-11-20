@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\taskc;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])
@@ -12,7 +12,7 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
     ->name('google.callback');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [taskc::class, 'index']);
+    Route::get('/', [TaskController::class, 'index']);
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -21,8 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('task', taskc::class)->except(['show']);
-    Route::patch('/task/{task}/complete', [taskc::class, 'markComplete'])->name('task.complete');
+    Route::resource('task', TaskController::class)->except(['show']);
+    Route::patch('/task/{task}/complete', [TaskController::class, 'markComplete'])->name('task.complete');
 });
 
 require __DIR__.'/auth.php';
