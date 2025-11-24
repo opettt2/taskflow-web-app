@@ -8,13 +8,21 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $userId = auth()->id();
 
         // Get recent tasks
-        $tasks = Task::where('user_id', $userId)
-            ->latest()
+        $query = Task::where('user_id', $userId);
+
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'LIKE', "%{$request->search}%")
+                  ->orWhere('description', 'LIKE', "%{$request->search}%");
+            });
+        }
+
+        $tasks = $query->latest()
             ->take(5)
             ->get();
 

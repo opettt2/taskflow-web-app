@@ -27,7 +27,10 @@ class TaskController extends Controller
         // 3. Search by Title
         // ===========================
         if ($request->search) {
-            $query->where('title', 'LIKE', "%{$request->search}%");
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'LIKE', "%{$request->search}%")
+                  ->orWhere('description', 'LIKE', "%{$request->search}%");
+            });
         }
 
         // ===========================
