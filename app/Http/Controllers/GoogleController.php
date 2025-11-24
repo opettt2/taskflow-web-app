@@ -8,6 +8,7 @@ use App\Models\User;
 
 class GoogleController extends Controller
 {
+
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -19,15 +20,18 @@ class GoogleController extends Controller
 
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
-            ['name' => $googleUser->getName(), 'password' => bcrypt('randompassword123')]
+            [
+                'name' => $googleUser->getName(),
+                'password' => bcrypt('randompassword123')
+            ]
         );
 
         Auth::login($user);
 
-        // Create API token for the user
+        //Create API token for the user
         $token = $user->createToken('api-token')->plainTextToken;
-
-        // You can either return token as JSON or store in session for frontend
-        return redirect('/dashboard')->with('api_token', $token);
+     
+        //Return token to the dashboard
+        return redirect()->route('/dashboard')->with('api_token', $token);
     }
 }
