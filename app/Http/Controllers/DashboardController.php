@@ -10,6 +10,11 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        // Validate search input
+        $request->validate([
+            'search' => 'nullable|string|max:255',
+        ]);
+
         $userId = auth()->id();
 
         // Get recent tasks

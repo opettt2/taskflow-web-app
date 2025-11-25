@@ -11,6 +11,14 @@ class TaskController extends Controller
     // Show all tasks
     public function index(Request $request)
     {
+        // Validate input parameters
+        $request->validate([
+            'search' => 'nullable|string|max:255',
+            'priority' => 'nullable|in:all,low,normal,high',
+            'status' => 'nullable|in:all,pending,in_progress,completed',
+            'sort_by' => 'nullable|in:due_date,priority,status',
+        ]);
+
         $query = Task::where('user_id', Auth::id());
 
         // Filter by status
@@ -118,7 +126,16 @@ class TaskController extends Controller
         'priority' => 'required|in:low,normal,high',
         'status' => 'required|in:pending,in_progress,completed',
         ]);
-        $task->update($request->all());
+        
+        // Update only validated fields to prevent mass assignment
+        $task->update($request->only([
+            'title',
+            'description',
+            'due_at',
+            'priority',
+            'status'
+        ]));
+        
         return redirect()->route('task.index')->with('success', 'Task Updated');
     }
 
