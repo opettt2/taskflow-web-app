@@ -32,6 +32,6 @@ class GoogleController extends Controller
         $token = $user->createToken('api-token')->plainTextToken;
      
         //Return token to the dashboard
-        return redirect()->route('/dashboard')->with('api_token', $token);
+        return redirect()->route('dashboard')->with('api_token', $token);
     }
 }
